@@ -115,11 +115,13 @@ function ComparePageInner() {
                         <button
                             key={laptop.id}
                             onClick={() => addLaptop(laptop.id)}
-                            className={`p-3 rounded-xl text-left transition-all ${selected.includes(laptop.id) ? "ring-2" : ""}`}
+                            className="p-3 rounded-xl text-left transition-all"
                             style={{
                                 background: selected.includes(laptop.id) ? "rgba(79,140,255,0.1)" : "var(--bg-secondary)",
-                                border: "1px solid var(--border-glass)",
-                                ringColor: "var(--accent-blue)",
+                                border: selected.includes(laptop.id)
+                                    ? "2px solid var(--accent-blue)"
+                                    : "1px solid var(--border-glass)",
+                                outline: "none",
                             }}
                             id={`pick-laptop-${laptop.id}`}
                         >
