@@ -11,16 +11,22 @@ export default function LaptopsPage() {
     const [laptops, setLaptops] = useState<Laptop[]>([]);
     const [filtered, setFiltered] = useState<Laptop[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [search, setSearch] = useState("");
     const [brand, setBrand] = useState("All");
     const [maxBudget, setMaxBudget] = useState(500000);
 
     useEffect(() => {
-        api.getLaptops().then((data) => {
-            setLaptops(data);
-            setFiltered(data);
-            setLoading(false);
-        });
+        api.getLaptops()
+            .then((data) => {
+                setLaptops(data);
+                setFiltered(data);
+                setLoading(false);
+            })
+            .catch(() => {
+                setError("Could not connect to the LaptopMind backend. Please try again in a moment.");
+                setLoading(false);
+            });
     }, []);
 
     useEffect(() => {
@@ -107,8 +113,24 @@ export default function LaptopsPage() {
                 </div>
             </motion.div>
 
+            {/* Error state */}
+            {error && (
+                <div className="text-center py-20">
+                    <div className="text-5xl mb-4">⚠️</div>
+                    <p className="text-xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>Backend not reachable</p>
+                    <p className="mb-4 max-w-md mx-auto" style={{ color: "var(--text-muted)" }}>{error}</p>
+                    <button
+                        onClick={() => window.location.reload()}
+                        className="px-6 py-2 rounded-xl font-semibold text-white"
+                        style={{ background: "var(--gradient-accent)" }}
+                    >
+                        Retry
+                    </button>
+                </div>
+            )}
+
             {/* Grid */}
-            {loading ? (
+            {!error && loading ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
                         <div key={i} className="rounded-2xl h-80 shimmer" />
