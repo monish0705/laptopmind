@@ -46,4 +46,4 @@ def health():
 
 import seed_data
 
-seed_data.seed_database()
+seed_data.seed()
