@@ -48,15 +48,18 @@ export default function PriceTable({ prices }: { prices: StorePrice[] }) {
                 </p>
             </div>
 
-            <div className="divide-y" style={{ divideColor: "var(--border-glass)" }}>
+            <div>
                 {sorted.map((store, i) => (
                     <motion.div
                         key={store.store_name}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.06 }}
-                        className="flex items-center justify-between p-4 hover:bg-opacity-50 transition-all"
-                        style={{ background: i === 0 ? "rgba(34,197,94,0.05)" : "transparent" }}
+                        className="flex items-center justify-between p-4 transition-all"
+                        style={{
+                            background: i === 0 ? "rgba(34,197,94,0.05)" : "transparent",
+                            borderTop: i > 0 ? "1px solid var(--border-glass)" : "none",
+                        }}
                     >
                         <div className="flex items-center gap-3">
                             <span className="text-2xl">{storeLogos[store.store_name] ?? "🏬"}</span>
