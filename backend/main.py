@@ -43,3 +43,7 @@ def root():
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+import seed_data
+
+seed_data.seed_database()
