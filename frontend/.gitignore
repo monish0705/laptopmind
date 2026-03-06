@@ -1,0 +1,16 @@
+# Node
+node_modules/
+.next/
+out/
+dist/
+
+# Environment
+.env
+.env.local
+.env.production.local
+.env.development.local
+
+# Misc
+.DS_Store
+Thumbs.db
+*.log
